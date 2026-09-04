@@ -15,6 +15,13 @@ function parseTags(raw: string): string[] {
   return [...new Set(raw.split(",").map((t) => t.trim().toLowerCase()).filter(Boolean))].slice(0, 10);
 }
 
+function parseNum(fd: FormData, key: string): number {
+  const v = str(fd, key);
+  if (!v) return 0;
+  const n = Number(v);
+  return Number.isFinite(n) && n >= 0 ? n : 0;
+}
+
 async function requireUser() {
   const supabase = await createClient();
   const {
@@ -39,6 +46,8 @@ function parseEntry(fd: FormData) {
       shipped_at,
       body: str(fd, "body") || null,
       tags: parseTags(str(fd, "tags")),
+      tokens: Math.trunc(parseNum(fd, "tokens")),
+      cost_usd: parseNum(fd, "cost_usd"),
     },
   } as const;
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { MagicLinkForm } from "@/components/magic-link-form";
+import { Card } from "@/components/ui/card";
 
 export const metadata: Metadata = { title: "Entrar" };
 
@@ -11,17 +12,17 @@ export default async function LoginPage({ searchParams }: PageProps<"/login">) {
     <main className="flex flex-1 items-center justify-center p-6">
       <div className="w-full max-w-sm">
         <h1 className="text-2xl font-semibold tracking-tight">ShipLog</h1>
-        <p className="mt-1 text-sm text-muted">
+        <p className="mt-1 text-sm text-muted-foreground">
           Registra lo que construyes, semana a semana.
         </p>
-        <div className="card mt-6">
+        <Card className="mt-6 p-4 ring-black">
           {typeof error === "string" ? (
-            <p className="mb-4 rounded-md bg-rose-50 p-2 text-sm text-rose-700">
+            <p className="mb-4 rounded-md bg-destructive/10 p-2 text-sm text-destructive">
               {error}
             </p>
           ) : null}
           <MagicLinkForm next={nextPath} />
-        </div>
+        </Card>
       </div>
     </main>
   );

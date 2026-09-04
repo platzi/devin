@@ -2,6 +2,8 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { signOut } from "@/app/actions/auth";
+import { Button } from "@/components/ui/button";
+import { Footer } from "@/components/footer";
 
 export default async function AppLayout({ children }: LayoutProps<"/">) {
   const supabase = await createClient();
@@ -18,16 +20,17 @@ export default async function AppLayout({ children }: LayoutProps<"/">) {
             ShipLog
           </Link>
           <div className="flex items-center gap-3 text-sm">
-            <span className="hidden text-muted sm:inline">{user.email}</span>
+            <span className="hidden text-muted-foreground sm:inline">{user.email}</span>
             <form action={signOut}>
-              <button type="submit" className="btn-ghost py-1">
+              <Button type="submit" variant="outline" size="sm">
                 Salir
-              </button>
+              </Button>
             </form>
           </div>
         </div>
       </header>
       <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-8">{children}</main>
+      <Footer />
     </>
   );
 }

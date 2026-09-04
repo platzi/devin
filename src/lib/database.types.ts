@@ -12,6 +12,7 @@ export type Database = {
       entries: {
         Row: {
           body: string | null
+          cost_usd: number
           created_at: string
           id: string
           kind: string
@@ -19,10 +20,12 @@ export type Database = {
           shipped_at: string
           tags: string[]
           title: string
+          tokens: number
           user_id: string
         }
         Insert: {
           body?: string | null
+          cost_usd?: number
           created_at?: string
           id?: string
           kind?: string
@@ -30,10 +33,12 @@ export type Database = {
           shipped_at?: string
           tags?: string[]
           title: string
+          tokens?: number
           user_id: string
         }
         Update: {
           body?: string | null
+          cost_usd?: number
           created_at?: string
           id?: string
           kind?: string
@@ -41,6 +46,7 @@ export type Database = {
           shipped_at?: string
           tags?: string[]
           title?: string
+          tokens?: number
           user_id?: string
         }
         Relationships: [

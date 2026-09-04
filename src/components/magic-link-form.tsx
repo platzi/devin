@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 
 export function MagicLinkForm({ next }: { next: string }) {
   const [email, setEmail] = useState("");
@@ -31,43 +34,42 @@ export function MagicLinkForm({ next }: { next: string }) {
     return (
       <div className="text-center">
         <p className="font-medium">Revisa tu correo</p>
-        <p className="mt-1 text-sm text-muted">
+        <p className="mt-1 text-sm text-muted-foreground">
           Enviamos un enlace de acceso a <strong>{email}</strong>.
         </p>
-        <button
+        <Button
           type="button"
-          className="mt-4 text-xs text-muted underline"
+          variant="link"
+          size="sm"
+          className="mt-4 text-xs text-muted-foreground"
           onClick={() => setStatus("idle")}
         >
           Usar otro correo
-        </button>
+        </Button>
       </div>
     );
   }
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-      <div>
-        <label htmlFor="email" className="label">
-          Correo
-        </label>
-        <input
+      <div className="grid gap-2">
+        <Label htmlFor="email">Correo</Label>
+        <Input
           id="email"
           type="email"
           required
           autoComplete="email"
-          className="input"
           placeholder="tu@correo.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           disabled={status === "sending"}
         />
       </div>
-      {error ? <p className="text-sm text-rose-700">{error}</p> : null}
-      <button type="submit" className="btn-primary" disabled={status === "sending"}>
+      {error ? <p className="text-sm text-destructive">{error}</p> : null}
+      <Button type="submit" disabled={status === "sending"}>
         {status === "sending" ? "Enviando…" : "Enviar enlace de acceso"}
-      </button>
-      <p className="text-center text-xs text-muted">
+      </Button>
+      <p className="text-center text-xs text-muted-foreground">
         Sin contraseña. Si es tu primera vez, se crea tu cuenta.
       </p>
     </form>
